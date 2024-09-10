@@ -7,25 +7,20 @@ function App() {
 
   let updateMin = time.min;
   let updateSec = time.sec;
-  let updateMilli = time.milli;
 
   const stopWatch = () => {
-    if (updateMilli === 100) {
-      updateSec++;
-      updateMilli = 0
-    }
     if (updateSec === 60) {
       updateMin++;
       updateSec = 0
     }
-    updateMilli++
+    updateSec++
     return (
-      setTime({ min: updateMin, sec: updateSec, milli: updateMilli })
+      setTime({ min: updateMin, sec: updateSec })
     )
   }
   const startTime = () => {
     stopWatch()
-    setStatus(setInterval(stopWatch, 10))
+    setStatus(setInterval(stopWatch, 1000))
 
   }
   const stopTime = () => {
@@ -33,7 +28,7 @@ function App() {
   }
   const resetTIme = () => {
     clearInterval(status);
-    setTime({ min: '00', sec: '00', milli: '00' })
+    setTime({ min: '00', sec: '00' })
   }
   return (
     <div className='flex justify-center items-center flex-col mt-7'>
@@ -44,7 +39,6 @@ function App() {
         <div className='flex justify-center items-center'>
           <h1 className='border border-slate-200 rounded-lg p-10 bg-slate-100 text-2xl font-semibold'>{time.min}</h1>
           <h1 className='border border-slate-200 rounded-lg p-10 bg-slate-100 ml-4 text-2xl font-semibold'>{time.sec}</h1>
-          <h1 className='border border-slate-200 rounded-lg p-10 bg-slate-100 ml-4 text-2xl font-semibold'>{time.milli}</h1>
         </div>
         <div className='mt-[100px] flex'>
           <button onClick={startTime} className='w-[120px] h-[40px] p-3 border border-slate-500 text-lg uppercase font-medium flex justify-center items-center bg-slate-200 rounded-xl transition-colors hover:bg-green-500 hover:border-green-500 hover:shadow-green-400 hover:shadow-md'>Start</button>
